@@ -1,8 +1,12 @@
+import { HeaderText } from './Landing.styles';
+import { PageContainer } from 'assets/styles';
 
-export function Landing() {
+function Landing() {
   return (
-    <>
-      <h1>teste testão</h1>
-    </>
+    <PageContainer>
+      <HeaderText>Teste testão testamento</HeaderText>
+    </PageContainer>
   );
 }
+
+export default Landing;

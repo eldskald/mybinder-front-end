@@ -1,20 +1,28 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'react-style-reset';
 
-export const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   ${reset};
 
   :root {
     --logofont: 'Black Han Sans', sans-serif;
     --scriptfont: 'Ubuntu', sans-serif;
     --headerfont: 'Bebas Neue', cursive;
-    --bgcolor: #3c1452;
+    --maincolor: #35cfcf;
+    --contrastcolor1: #ffffff;
+    --contrastcolor2: #489de2;
+    --contrastcolor3: #9411b4;
+    --divcolor1: #1d362c;
+    --divcolor2: #457260;
+    --divcolor3: #cbe4db;
+    --textcolor1: #e2e9ee;
+    --textcolor2: #7c8d99;
+    --textcolor3: #38444d;
+    --bgcolor: #0c171a;
   }
 
-  h1 {
-    font-family: var(--headerfont);
-    font-size: 32px;
-    color: white;
+  * {
+    box-sizing: border-box;
   }
 
   #root {
@@ -23,6 +31,10 @@ export const GlobalStyle = createGlobalStyle`
     bottom: 0px;
     left: 0px;
     right: 0px;
+    display: flex;
+    justify-content: center;
     background-color: var(--bgcolor);
   }
 `;
+
+export default GlobalStyle;
