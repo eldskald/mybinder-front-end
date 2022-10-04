@@ -1,11 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios, { AxiosResponse, AxiosError } from 'axios';
-import {
-  UseRequestData,
-  UseRequestResponse,
-  UseRequestError,
-  UseRequestReturn
-} from 'utils/types';
+import axios from 'axios';
+import { UseRequestResponse, UseRequestError, UseRequestReturn } from 'utils/types';
 
 const API_URL: string = import.meta.env.VITE_API_URL as string;
 
@@ -14,45 +9,68 @@ function useRequest(
   route: string,
   headers: object = {}
 ): UseRequestReturn {
-  const [firstCall, setFirstCall] = useState<boolean>(true);
-  const [requesting, setRequesting] = useState<boolean>(true);
-  const [requestData, setRequestData] = useState<UseRequestData>({
-    method, route, body: {}, headers
-  });
-  const [response, setResponse] = useState<UseRequestResponse | undefined>(undefined);
-  const [error, setError] = useState<UseRequestError | undefined>(undefined);
+  // const [firstCall, setFirstCall] = useState<boolean>(true);
+  // const [requesting, setRequesting] = useState<boolean>(true);
+  // const [requestData, setRequestData] = useState<object>({});
+  // const [thenFunc, setThenFunc] = useState<(res: UseRequestResponse) => void>(() => {return});
+  // const [catchFunc, setCatchFunc] = useState<(err: UseRequestError) => void>(() => {return});
   const [loading, setLoading] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (requestData === null || firstCall) {
-      setFirstCall(false);
-      return;
-    }
+  // useEffect(() => {
+  //   if (firstCall) {
+  //     setFirstCall(false);
+  //     return;
+  //   }
 
+  //   setLoading(true);
+  //   axios[method](
+  //     API_URL + route,
+  //     requestData,
+  //     headers
+  //   )
+  //     .then(res => {
+  //       thenFunc({ status: res.status, data: res.data });
+  //       setLoading(false);
+  //     })
+  //     .catch(err => {
+  //       let error: UseRequestError = { status: 500, message: 'Internal server error' };
+  //       if (axios.isAxiosError(err) && err.response)
+  //         error = { status: err.response.status, message: err.response.data as string };
+  //       catchFunc(error);
+  //       setLoading(false);
+  //     });
+  // }, [requesting]);
+
+  function sendRequest(
+    body: object,
+    thenFn: (res: UseRequestResponse) => void,
+    catchFn: (err: UseRequestError) => void
+  ) {
     setLoading(true);
-    axios[requestData.method](
-      API_URL + requestData.route,
-      requestData.body,
-      requestData.headers
+    axios[method](
+      API_URL + route,
+      body,
+      headers
     )
       .then(res => {
-        setResponse({ status: res.status, data: res.data });
+        thenFn({ status: res.status, data: res.data });
         setLoading(false);
       })
       .catch(err => {
+        let error: UseRequestError = { status: 500, message: 'Internal server error' };
         if (axios.isAxiosError(err) && err.response)
-          setError({ status: err.response.status, message: err.response.data as string })
-        else setError({ status: 500, message: 'Internal server error' });
+          error = { status: err.response.status, message: err.response.data as string };
+        catchFn(error);
         setLoading(false);
       });
-  }, [requesting]);
 
-  function sendRequest(body: object = {}) {
-    setRequestData({ method, route, body, headers });
-    setRequesting(!requesting);
+    // setRequestData(body);
+    // setThenFunc(thenFn);
+    // setCatchFunc(catchFn);
+    // setRequesting(!requesting);
   }
   
-  return [response, error, loading, sendRequest];
+  return [loading, sendRequest];
 }
 
 export default useRequest;

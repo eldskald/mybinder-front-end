@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRequest } from 'hooks';
 import { PulseLoader } from 'react-spinners';
 import { PageContainer } from 'assets/styles';
@@ -19,11 +19,7 @@ function SignUp() {
   const [password, setPassword] = useState<string>('');
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [response, error, loading, sendRequest] = useRequest('post', '/sign-up');
-
-  useEffect(() => {
-    console.log(response?.status);
-  }, [response]);
+  const [loading, sendRequest] = useRequest('post', '/sign-up');
 
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -33,7 +29,16 @@ function SignUp() {
       return;
     }
     setMessage('');
-    sendRequest({ username, displayname, password });
+    sendRequest(
+      { username, displayname, password },
+      res => {
+        console.log(res.status);
+        console.log(res.data);
+      },
+      err => {
+        setMessage(err.message);
+      }
+    );
   }
 
   return (
@@ -73,8 +78,8 @@ function SignUp() {
             onChange={e => setPasswordConfirm(e.target.value)}
             required
           />
-          {message || error ? (
-            <MessageContainer>{error?.message + message}</MessageContainer>
+          {message  ? (
+            <MessageContainer>{message}</MessageContainer>
           ) : (
             <></>
           )}

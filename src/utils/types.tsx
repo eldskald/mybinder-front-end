@@ -1,18 +1,9 @@
-import { AxiosResponse, AxiosError } from 'axios';
-
 export type User = {
   id: number,
   username: string,
   displayname: string,
   token: string
 } | null
-
-export type UseRequestData = {
-  method: 'get' | 'post' | 'put' | 'patch' | 'delete',
-  route: string,
-  body: object,
-  headers: object
-};
 
 export type UseRequestResponse = {
   status: number,
@@ -25,8 +16,10 @@ export type UseRequestError = {
 };
 
 export type UseRequestReturn = [
-  response: UseRequestResponse | undefined,
-  error: UseRequestError | undefined,
   loading: boolean,
-  sendRequest: Function
+  sendRequest: (
+    body: object,
+    thenFn: (res: UseRequestResponse) => void,
+    catchFn: (err: UseRequestError) => void
+  ) => void
 ];
