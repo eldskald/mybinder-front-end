@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     --maincolor: #35cfcf;
     --contrastcolor1: #ffffff;
     --contrastcolor2: #489de2;
-    --contrastcolor3: #9411b4;
+    --contrastcolor3: #bb0fe6;
     --divcolor1: #1d362c;
     --divcolor2: #457260;
     --divcolor3: #cbe4db;

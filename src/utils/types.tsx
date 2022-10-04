@@ -14,9 +14,19 @@ export type UseRequestData = {
   headers: object
 };
 
-export type UseRequestResponse = [
-  response: AxiosResponse | undefined,
-  error: AxiosError | undefined,
+export type UseRequestResponse = {
+  status: number,
+  data: object | string | number
+};
+
+export type UseRequestError = {
+  status: number,
+  message: string
+};
+
+export type UseRequestReturn = [
+  response: UseRequestResponse | undefined,
+  error: UseRequestError | undefined,
   loading: boolean,
   sendRequest: Function
 ];

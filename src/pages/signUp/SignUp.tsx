@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRequest } from 'hooks';
+import { PulseLoader } from 'react-spinners';
 import { PageContainer } from 'assets/styles';
 
 import {
@@ -6,22 +8,41 @@ import {
   TitleWrapper,
   FormContainer,
   InputLabel,
-  InputField
+  InputField,
+  SubmitButton,
+  MessageContainer
 } from './SignUp.styles';
 
 function SignUp() {
-  const [username, setUsername] = useState('');
-  const [displayname, setDisplayname] = useState('');
-  const [password, setPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [displayname, setDisplayname] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
+  const [response, error, loading, sendRequest] = useRequest('post', '/sign-up');
+
+  useEffect(() => {
+    console.log(response?.status);
+  }, [response]);
+
+  function handleSubmit(e: React.SyntheticEvent) {
+    e.preventDefault();
+    if (loading) return;
+    if (passwordConfirm !== password) {
+      setMessage('Confirm your password correctly');
+      return;
+    }
+    setMessage('');
+    sendRequest({ username, displayname, password });
+  }
 
   return (
     <PageContainer>
       <Container>
         <TitleWrapper>Sign Up</TitleWrapper>
-        <FormContainer>
-        <InputLabel htmlFor='username'>Username</InputLabel>
-        <InputField
+        <FormContainer onSubmit={handleSubmit}>
+          <InputLabel htmlFor='username'>Username</InputLabel>
+          <InputField
             id='username'
             type='text'
             value={username}
@@ -52,6 +73,21 @@ function SignUp() {
             onChange={e => setPasswordConfirm(e.target.value)}
             required
           />
+          {message || error ? (
+            <MessageContainer>{error?.message + message}</MessageContainer>
+          ) : (
+            <></>
+          )}
+          <SubmitButton type='submit'>
+            {loading ? (
+              <PulseLoader
+                color={'var(--contrastcolor1)'}
+                size={15}
+              />
+            ) : (
+              'Submit'
+            )}
+          </SubmitButton>
         </FormContainer>
       </Container>
     </PageContainer>

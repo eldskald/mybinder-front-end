@@ -6,7 +6,7 @@ export const Container = styled.div`
   background-color: var(--divcolor1);
   border: 2px solid var(--textcolor1);
   border-radius: 32px;
-  padding: 0px 32px 64px 32px;
+  padding: 0px 32px;
 
   @media (max-width: 800px) {
     background-color: var(--bgcolor);
@@ -56,4 +56,30 @@ export const InputField = styled.input`
     color: var(--textcolor2);
     border-color: var(--textcolor2);
   }
+`;
+
+export const SubmitButton = styled.button`
+  width: 196px;
+  height: 48px;
+  margin: 32px auto;
+  border: none;
+  border-radius: 24px;
+  background-color: var(--contrastcolor2);
+  cursor: pointer;
+  font-family: var(--headerfont);
+  font-size: 24px;
+  text-align: center;
+  color: var(--contrastcolor1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const MessageContainer = styled.div`
+  width: 100%;
+  margin-top: 32px;
+  font-family: var(--scriptfont);
+  font-size: 18px;
+  text-align: center;
+  color: var(--contrastcolor3);
 `;
