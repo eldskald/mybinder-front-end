@@ -3,15 +3,13 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 800px;
   height: fit-content;
-  margin-top: 42px;
-  
+  margin-top: 32px;
   background-color: var(--divcolor1);
   border: 2px solid var(--textcolor1);
   border-radius: 32px;
   padding: 0px 32px;
 
   @media (max-width: 800px) {
-    width: 100%;
     background-color: var(--bgcolor);
     border: none;
   }
@@ -19,17 +17,9 @@ export const Container = styled.div`
 
 export const TitleWrapper = styled.div`
   width: 100%;
-  margin: 32px 0px 16px 0px;
+  margin: 32px 0px 12px 0px;
   font-family: var(--headerfont);
   font-size: 52px;
-  color: var(--contrastcolor1);
-  text-align: center;
-`;
-
-export const SubtitleWrapper = styled.div`
-  width: 100%;
-  font-family: var(--scriptfont);
-  font-size: 28px;
   color: var(--contrastcolor1);
   text-align: center;
 `;

@@ -4,7 +4,8 @@ const PageContainer = styled.div`
   width: 1000px;
   height: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   @media (max-width: 1024px) {
     width: 100%;
