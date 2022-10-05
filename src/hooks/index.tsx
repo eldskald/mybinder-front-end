@@ -1,3 +1,4 @@
 import useRequest from './useRequest';
+import usePopup from './usePopup';
 
-export { useRequest };
+export { useRequest, usePopup };

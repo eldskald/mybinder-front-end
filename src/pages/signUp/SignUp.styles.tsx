@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   width: 800px;
   height: fit-content;
+  margin-top: 64px;
   background-color: var(--divcolor1);
   border: 2px solid var(--textcolor1);
   border-radius: 32px;
@@ -16,7 +17,7 @@ export const Container = styled.div`
 
 export const TitleWrapper = styled.div`
   width: 100%;
-  margin: 32px 0px 52px 0px;
+  margin: 32px 0px 12px 0px;
   font-family: var(--headerfont);
   font-size: 52px;
   color: var(--contrastcolor1);
@@ -44,7 +45,7 @@ export const InputField = styled.input`
   width: 100%;
   height: 48px;
   padding-left: 16px;
-  background-color: var(--bgcolor);
+  background-color: var(--bgcolor1);
   border-radius: 24px;
   border: 2px solid var(--textcolor1);
   outline: none;

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 const PageContainer = styled.div`
   width: 1000px;
   height: 100%;
-  padding-top: 128px;
   display: flex;
   justify-content: center;
 

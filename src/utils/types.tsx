@@ -3,7 +3,7 @@ export type User = {
   username: string,
   displayname: string,
   token: string
-} | null
+} | null;
 
 export type UseRequestResponse = {
   status: number,
