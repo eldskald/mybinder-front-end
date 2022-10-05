@@ -1,15 +1,17 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext, PopupContext } from 'contexts';
+import { autoLogin } from 'services';
 import { GlobalStyle, Main, PageContainer, Spacer } from 'assets/styles';
 import { Landing, SignUp, Login } from 'pages';
-import { Header, Popup } from 'components';
+import { CoverSpinner, Header, Popup } from 'components';
 import { User } from 'utils/types'
 
 function App() {
   const [user, setUser] = useState<User>(null);
   const [messages, setMessages] = useState<string[]>([]);
   const [onCloseFunctions, setOnCloseFunctions] = useState<(() => void)[]>([]);
+  const [loadingUser] = autoLogin(user, setUser);
 
   return (
     <>
@@ -28,6 +30,7 @@ function App() {
                 <Spacer length='242px' />
               </PageContainer>
             </Main>
+            <CoverSpinner loading={loadingUser} />
             <Popup />
           </BrowserRouter>
         </PopupContext.Provider>
