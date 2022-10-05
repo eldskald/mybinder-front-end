@@ -1,15 +1,20 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  width: 800px;
+  width: 500px;
   height: fit-content;
-  margin-top: 32px;
-  background-color: var(--divcolor1);
+  margin: 32px 0px;
   border: 2px solid var(--textcolor1);
   border-radius: 32px;
   padding: 0px 32px;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--divcolor1-light) 0%,
+    var(--divcolor1) 60%,
+    var(--divcolor1-dark) 100%);
 
-  @media (max-width: 800px) {
+  @media (max-width: 500px) {
+    width: 100%;
     background-color: var(--bgcolor);
     border: none;
   }
@@ -17,7 +22,7 @@ export const Container = styled.div`
 
 export const TitleWrapper = styled.div`
   width: 100%;
-  margin: 32px 0px 12px 0px;
+  margin: 64px 0px 12px 0px;
   font-family: var(--headerfont);
   font-size: 52px;
   color: var(--contrastcolor1);
@@ -62,7 +67,7 @@ export const InputField = styled.input`
 export const SubmitButton = styled.button`
   width: 196px;
   height: 48px;
-  margin: 32px auto;
+  margin: 46px auto 32px auto;
   border: none;
   border-radius: 24px;
   background-color: var(--contrastcolor2);
@@ -74,6 +79,11 @@ export const SubmitButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.2s;
+
+  :hover {
+    background-color: var(--maincolor);
+  }
 `;
 
 export const MessageContainer = styled.div`
@@ -83,4 +93,25 @@ export const MessageContainer = styled.div`
   font-size: 18px;
   text-align: center;
   color: var(--contrastcolor3);
+`;
+
+export const Text = styled.div`
+  width: 100%;
+  font-family: var(--scriptfont);
+  font-size: 20px;
+  color: var(--textcolor1);
+  text-align: center;
+`;
+
+export const Link = styled.span`
+  font-family: var(--scriptfont);
+  font-size: 20px;
+  text-decoration: underline;
+  color: var(--contrastcolor2);
+  cursor: pointer;
+  transition: 0.2s;
+
+  :hover {
+    color: var(--maincolor);
+  }
 `;

@@ -8,13 +8,18 @@ const GlobalStyle = createGlobalStyle`
     --logofont: 'Black Han Sans', sans-serif;
     --scriptfont: 'Ubuntu', sans-serif;
     --headerfont: 'Bebas Neue', cursive;
-    --maincolor: #35cfcf;
+    --maincolor: #3ad6ea;
     --contrastcolor1: #ffffff;
     --contrastcolor2: #489de2;
     --contrastcolor3: #bb0fe6;
     --divcolor1: #1d362c;
+    --divcolor1-light: #2a5241;
+    --divcolor1-dark: #15271f;
     --divcolor2: #457260;
     --divcolor3: #cbe4db;
+    --divcolor4-light: #4b96a3;
+    --divcolor4: #366c75;
+    --divcolor4-dark: #234950;
     --textcolor1: #e2e9ee;
     --textcolor2: #7c8d99;
     --textcolor3: #38444d;
@@ -24,6 +29,10 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
+  }
+
+  a {
+    text-decoration: none;
   }
 
   #root {

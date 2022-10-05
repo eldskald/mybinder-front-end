@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { useRequest } from 'hooks';
 import { PulseLoader } from 'react-spinners';
-
 import {
   Container,
   TitleWrapper,
@@ -10,10 +10,13 @@ import {
   InputLabel,
   InputField,
   SubmitButton,
-  MessageContainer
-} from './SignIn.styles';
+  MessageContainer,
+  Text,
+  Link
+} from './Login.styles';
 
-function SignIn() {
+
+function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -38,7 +41,10 @@ function SignIn() {
 
   return (
     <>
-      <TitleWrapper>Sign In</TitleWrapper>
+      <Helmet>
+        <title>MyBinder | Login</title>
+      </Helmet>
+      <TitleWrapper>Sign in to your account</TitleWrapper>
       <Container>
         <FormContainer onSubmit={handleSubmit}>
           <InputLabel htmlFor='username'>Username</InputLabel>
@@ -74,8 +80,11 @@ function SignIn() {
           </SubmitButton>
         </FormContainer>
       </Container>
+      <Text>
+        Don't have an account yet? <Link onClick={() => navigate('/sign-up')}>Sign up!</Link>
+      </Text>
     </>
   );
 }
 
-export default SignIn;
+export default Login;

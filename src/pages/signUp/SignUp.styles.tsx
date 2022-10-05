@@ -4,14 +4,18 @@ export const Container = styled.div`
   width: 800px;
   height: fit-content;
   margin-top: 42px;
-  
-  background-color: var(--divcolor1);
   border: 2px solid var(--textcolor1);
   border-radius: 32px;
   padding: 0px 32px;
+  background-image: linear-gradient(
+    to bottom right,
+    var(--divcolor1-light) 0%,
+    var(--divcolor1) 60%,
+    var(--divcolor1-dark) 100%);
 
   @media (max-width: 800px) {
     width: 100%;
+    background-image: none;
     background-color: var(--bgcolor);
     border: none;
   }
@@ -32,6 +36,7 @@ export const SubtitleWrapper = styled.div`
   font-size: 28px;
   color: var(--contrastcolor1);
   text-align: center;
+  padding: 0px 24px;
 `;
 
 export const FormContainer = styled.form`
@@ -84,6 +89,11 @@ export const SubmitButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.2s;
+
+  :hover {
+    background-color: var(--maincolor);
+  }
 `;
 
 export const MessageContainer = styled.div`

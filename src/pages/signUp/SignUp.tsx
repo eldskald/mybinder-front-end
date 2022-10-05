@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import { useRequest, usePopup } from 'hooks';
 import { PulseLoader } from 'react-spinners';
 
@@ -45,6 +46,9 @@ function SignUp() {
 
   return (
     <>
+      <Helmet>
+        <title>MyBinder | Sign Up</title>
+      </Helmet>
       <TitleWrapper>Sign Up</TitleWrapper>
       <SubtitleWrapper>
         Create an account now and start creating your own personalized web pages!
