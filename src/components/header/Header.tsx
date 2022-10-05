@@ -5,9 +5,7 @@ import { MdAutoStories } from 'react-icons/md';
 import {
   Buttons,
   Container,
-  LoginButton,
   Logo,
-  SignUpButton
 } from './Header.styles';
 
 function Header() {
