@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
+import { UserContext } from 'contexts';
+import { login } from 'services';
 import { useRequest } from 'hooks';
 import { PulseLoader } from 'react-spinners';
+import { User } from 'utils/types'
 import {
   Container,
   TitleWrapper,
@@ -15,12 +18,12 @@ import {
   Link
 } from './Login.styles';
 
-
 function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [submitting, sendRequest] = useRequest('post', '/sign-in');
+  const { setUser } = useContext(UserContext);
+  const [submitting, sendRequest] = useRequest<User>('post', '/sign-in');
   const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
@@ -30,7 +33,7 @@ function Login() {
     sendRequest(
       { username, password },
       res => {
-        console.log(res.data);
+        login(res.data, setUser);
         navigate('/');
       },
       err => {

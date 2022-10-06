@@ -1,11 +1,10 @@
-import { useContext } from 'react';
-import { UserContext } from 'contexts';
 import { saveToken } from 'services';
 import { User } from 'utils/types';
 
-function login(data: User): void {
-  if (!data) return;
-  const { user, setUser } = useContext(UserContext);
+function login(
+  data: User,
+  setUser: React.Dispatch<React.SetStateAction<User | null>>
+): void {
   setUser(data);
   saveToken(data.token);
 }

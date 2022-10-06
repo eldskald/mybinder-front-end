@@ -2,23 +2,23 @@ export type User = {
   username: string,
   displayname: string,
   token: string
-} | null;
-
-export type UseRequestResponse = {
-  status: number,
-  data: object | string | number
 };
+
+export type UseRequestResponse<Type> = {
+  status: number,
+  data: Type
+}
 
 export type UseRequestError = {
   status: number,
   message: string
 };
 
-export type UseRequestReturn = [
+export type UseRequestReturn<Type> = [
   loading: boolean,
   sendRequest: (
     body: object,
-    thenFn: (res: UseRequestResponse) => void,
+    thenFn: (res: UseRequestResponse<Type>) => void,
     catchFn: (err: UseRequestError) => void
   ) => void
 ];

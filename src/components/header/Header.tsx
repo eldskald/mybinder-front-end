@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { MdAutoStories } from 'react-icons/md';
-
+import { UserContext } from 'contexts';
 import {
   Buttons,
   Container,
@@ -9,6 +9,8 @@ import {
 } from './Header.styles';
 
 function Header() {
+  const { user } = useContext(UserContext);
+
   return (
     <Container>
       <Logo>
@@ -18,12 +20,18 @@ function Header() {
         </Link>
       </Logo>
       <Buttons>
-        <Link to='/login'>
-          Login
-        </Link>
-        <Link to='/sign-up'>
-          Sign Up
-        </Link>
+        {user ? (
+          `Hi ${user.displayname}`
+        ) : (
+          <>
+            <Link to='/login'>
+              Login
+            </Link>
+            <Link to='/sign-up'>
+              Sign Up
+            </Link>
+          </>
+        )}
       </Buttons>
     </Container>
   );

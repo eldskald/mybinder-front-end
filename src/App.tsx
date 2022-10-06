@@ -8,10 +8,10 @@ import { CoverSpinner, Header, Popup } from 'components';
 import { User } from 'utils/types'
 
 function App() {
-  const [user, setUser] = useState<User>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [messages, setMessages] = useState<string[]>([]);
   const [onCloseFunctions, setOnCloseFunctions] = useState<(() => void)[]>([]);
-  const [loadingUser] = autoLogin(user, setUser);
+  const [loadingUser] = autoLogin(setUser);
 
   return (
     <>

@@ -4,16 +4,16 @@ import { UseRequestResponse, UseRequestError, UseRequestReturn } from 'utils/typ
 
 const API_URL: string = import.meta.env.VITE_API_URL as string;
 
-function useRequest(
+function useRequest<Type>(
   method: 'get' | 'post' | 'put' | 'patch' | 'delete',
   route: string,
   headers: object = {}
-): UseRequestReturn {
+): UseRequestReturn<Type> {
   const [loading, setLoading] = useState<boolean>(false);
 
   function sendRequest(
     body: object,
-    thenFn: (res: UseRequestResponse) => void,
+    thenFn: (res: UseRequestResponse<Type>) => void,
     catchFn: (err: UseRequestError) => void
   ) {
     setLoading(true);
@@ -23,7 +23,7 @@ function useRequest(
       headers
     )
       .then(res => {
-        thenFn({ status: res.status, data: res.data });
+        thenFn({ status: res.status, data: res.data as Type });
         setLoading(false);
       })
       .catch(err => {

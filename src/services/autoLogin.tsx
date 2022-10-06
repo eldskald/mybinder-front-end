@@ -7,15 +7,14 @@ import { User } from 'utils/types';
 const API_URL: string = import.meta.env.VITE_API_URL as string;
 
 function autoLogin(
-  user: User,
-  setUser: React.Dispatch<React.SetStateAction<User>>
+  setUser: React.Dispatch<React.SetStateAction<User | null>>
 ): [boolean] {
   const [loading, setLoading] = useState<boolean>(true);
   const popup = usePopup();
   
   useEffect(() => {
     const token = getToken();
-    if (!token || user) {
+    if (!token) {
       setLoading(false);
       return;
     };
