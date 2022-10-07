@@ -6,7 +6,7 @@ export const Background = styled.div`
   bottom: 0px;
   left: 0px;
   right: 0px;
-  z-index: 4px;
+  z-index: 5px;
   background-image: linear-gradient(to bottom right, var(--bgcolor1), var(--bgcolor2));
   display: flex;
   align-items: center;

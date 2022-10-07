@@ -61,7 +61,7 @@ function SignUp() {
             type='text'
             value={username}
             onChange={e => setUsername(e.target.value)}
-            required
+            autoFocus
           />
           <InputLabel htmlFor='displayname'>Displayname</InputLabel>
           <InputField
@@ -69,7 +69,6 @@ function SignUp() {
             type='text'
             value={displayname}
             onChange={e => setDisplayname(e.target.value)}
-            required
           />
           <InputLabel htmlFor='password'>Password</InputLabel>
           <InputField
@@ -77,7 +76,6 @@ function SignUp() {
             type='password'
             value={password}
             onChange={e => setPassword(e.target.value)}
-            required
           />
           <InputLabel htmlFor='passwordConfirm'>Confirm Password</InputLabel>
           <InputField
@@ -85,7 +83,6 @@ function SignUp() {
             type='password'
             value={passwordConfirm}
             onChange={e => setPasswordConfirm(e.target.value)}
-            required
           />
           {message  ? (
             <MessageContainer>{message}</MessageContainer>

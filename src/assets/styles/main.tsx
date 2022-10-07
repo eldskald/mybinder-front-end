@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Main = styled.div`
   position: absolute;
-  top: 96px;
+  top: 64px;
   bottom: 0px;
   left: 0px;
   right: 0px;

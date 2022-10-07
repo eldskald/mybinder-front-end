@@ -56,7 +56,7 @@ function Login() {
             type='text'
             value={username}
             onChange={e => setUsername(e.target.value)}
-            required
+            autoFocus
           />
           <InputLabel htmlFor='password'>Password</InputLabel>
           <InputField
@@ -64,7 +64,6 @@ function Login() {
             type='password'
             value={password}
             onChange={e => setPassword(e.target.value)}
-            required
           />
           {message  ? (
             <MessageContainer>{message}</MessageContainer>

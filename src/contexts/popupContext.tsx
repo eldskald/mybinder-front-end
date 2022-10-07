@@ -1,15 +1,9 @@
 import React, { createContext } from 'react';
+import { PopupData } from 'utils/types';
 
 const PopupContext = createContext<{
-  messages: string[],
-  setMessages: React.Dispatch<React.SetStateAction<string[]>>,
-  onCloseFunctions: (() => void)[],
-  setOnCloseFunctions: React.Dispatch<React.SetStateAction<(() => void)[]>>,
-}>({
-  messages: [],
-  setMessages: () => {return},
-  onCloseFunctions: [],
-  setOnCloseFunctions: () => {return}
-});
+  popups: PopupData[],
+  setPopups: React.Dispatch<React.SetStateAction<PopupData[]>>
+}>({ popups: [], setPopups: () => {return} });
 
 export default PopupContext;

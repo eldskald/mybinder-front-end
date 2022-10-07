@@ -22,3 +22,9 @@ export type UseRequestReturn<Type> = [
     catchFn: (err: UseRequestError) => void
   ) => void
 ];
+
+export type PopupData = {
+  message: string,
+  onOk: () => void,
+  onCancel: (() => void) | null
+}

@@ -4,33 +4,48 @@ import {
   Background,
   PopupContainer,
   Message,
-  Button
+  ButtonContainer,
+  OkButton,
+  CancelButton
 } from './Popup.styles';
 
 function Popup() {
-  const { messages, setMessages, onCloseFunctions } = useContext(PopupContext);
+  const { popups, setPopups } = useContext(PopupContext);
 
-  function handleClick(e: React.SyntheticEvent) {
-    const newMessages = [...messages];
-    newMessages.pop();
-    setMessages(newMessages);
-    const onClose = onCloseFunctions.pop();
-    if (onClose) onClose();
+  if (popups.length === 0) return (<></>);
+
+  const message = popups[popups.length - 1].message;
+  const onOk = popups[popups.length - 1].onOk;
+  const onCancel = popups[popups.length - 1].onCancel;
+
+  function handleOk(e: React.SyntheticEvent) {
+    onOk();
+    setPopups(prev => prev.slice(0, -1));
+  }
+
+  function handleCancel(e: React.SyntheticEvent) {
+    if (onCancel) onCancel();
+    setPopups(prev => prev.slice(0, -1));
   }
 
   return (
-    (messages.length === 0 ? (<></>) : (
-      <Background>
-        <PopupContainer>
-          <Message>
-            {messages[messages.length - 1]}
-          </Message>
-          <Button onClick={handleClick}>
+    <Background>
+      <PopupContainer>
+        <Message>
+          {message}
+        </Message>
+        <ButtonContainer>
+          <OkButton onClick={handleOk}>
             Ok
-          </Button>
-        </PopupContainer>
-      </Background>
-    ))
+          </OkButton>
+          {onCancel ? (
+            <CancelButton onClick={handleCancel}>
+              Cancel
+            </CancelButton>
+          ) : (<></>)}
+        </ButtonContainer>
+      </PopupContainer>
+    </Background>
   );
 }
 

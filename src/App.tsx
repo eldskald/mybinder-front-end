@@ -5,19 +5,18 @@ import { autoLogin } from 'services';
 import { GlobalStyle, Main, PageContainer, Spacer } from 'assets/styles';
 import { Landing, SignUp, Login } from 'pages';
 import { CoverSpinner, Header, Popup } from 'components';
-import { User } from 'utils/types'
+import { User, PopupData } from 'utils/types'
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
-  const [messages, setMessages] = useState<string[]>([]);
-  const [onCloseFunctions, setOnCloseFunctions] = useState<(() => void)[]>([]);
+  const [popups, setPopups] = useState<PopupData[]>([]);
   const [loadingUser] = autoLogin(setUser);
 
   return (
     <>
       <GlobalStyle />
       <UserContext.Provider value={{ user, setUser }}>
-        <PopupContext.Provider value={{ messages, setMessages, onCloseFunctions, setOnCloseFunctions }}>
+        <PopupContext.Provider value={{ popups, setPopups }}>
           <BrowserRouter>
             <Header />
             <Main>

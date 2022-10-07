@@ -33,11 +33,18 @@ export const Message = styled.p`
   color: var(--textcolor1);
 `;
 
-export const Button = styled.button`
+export const ButtonContainer = styled.div`
+  width: 100%;
+  margin-top: 32px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+export const OkButton = styled.div`
   width: 128px;
   height: 48px;
-  margin: 32px auto 0px auto;
-  border: none;
   border-radius: 24px;
   background-color: var(--contrastcolor2);
   cursor: pointer;
@@ -48,4 +55,25 @@ export const Button = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: 0.2s;
+
+  :hover {
+    background-color: var(--maincolor);
+  }
+`;
+
+export const CancelButton = styled.div`
+  background-color: transparent;
+  cursor: pointer;
+  font-family: var(--scriptfont);
+  font-size: 24px;
+  color: var(--contrastcolor2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+
+  :hover {
+    color: var(--maincolor);
+  }
 `;

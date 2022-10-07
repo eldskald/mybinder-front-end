@@ -1,9 +1,7 @@
-import { useContext } from 'react';
-import { UserContext } from 'contexts';
 import { removeToken } from 'services';
+import { User } from 'utils/types';
 
-function logout(): void {
-  const { user, setUser } = useContext(UserContext);
+function logout(setUser: React.Dispatch<React.SetStateAction<User | null>>): void {
   setUser(null);
   removeToken();
 }
