@@ -3,9 +3,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext, PopupContext } from 'contexts';
 import { autoLogin } from 'services';
 import { GlobalStyle, Main, PageContainer, Spacer } from 'assets/styles';
-import { Landing, SignUp, Login } from 'pages';
 import { CoverSpinner, Header, Popup } from 'components';
 import { User, PopupData } from 'utils/types'
+import {
+  Landing,
+  SignUp,
+  Login,
+  Settings
+} from 'pages';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
@@ -25,6 +30,7 @@ function App() {
                   <Route path='/' element={<Landing />} />
                   <Route path='/sign-up' element={<SignUp />} />
                   <Route path='/login' element={<Login />} />
+                  <Route path='/settings' element={<Settings />} />
                 </Routes>
                 <Spacer length='242px' />
               </PageContainer>

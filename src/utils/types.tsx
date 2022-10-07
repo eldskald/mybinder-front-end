@@ -1,4 +1,5 @@
 export type User = {
+  userId: number,
   username: string,
   displayname: string,
   token: string

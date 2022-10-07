@@ -65,7 +65,7 @@ function Login() {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
-          {message  ? (
+          {message ? (
             <MessageContainer>{message}</MessageContainer>
           ) : (
             <></>

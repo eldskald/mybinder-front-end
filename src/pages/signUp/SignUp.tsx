@@ -84,7 +84,7 @@ function SignUp() {
             value={passwordConfirm}
             onChange={e => setPasswordConfirm(e.target.value)}
           />
-          {message  ? (
+          {message ? (
             <MessageContainer>{message}</MessageContainer>
           ) : (
             <></>
