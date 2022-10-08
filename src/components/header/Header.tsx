@@ -30,10 +30,7 @@ function Header() {
   function handleLogout() {
     popup(
       'Are you sure you want to log out?',
-      () => {
-        logout(setUser);
-        navigate('/');
-      },
+      () => {logout(setUser, navigate);},
       () => {return;}
     );
   }

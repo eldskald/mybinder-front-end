@@ -1,11 +1,23 @@
+import { useState, useEffect, useContext } from 'react';
+import { Helmet } from 'react-helmet';
+import { UserContext } from 'contexts';
+import { getToken } from 'services';
 import { HeaderText } from './Landing.styles';
-import { PageContainer } from 'assets/styles';
 
 function Landing() {
+  const { setUser } = useContext(UserContext);
+
+  useEffect(() => {
+    if (!getToken) setUser(null);
+  }, [])
+
   return (
-    <PageContainer>
+    <>
+      <Helmet>
+        <title>MyBinder</title>
+      </Helmet>
       <HeaderText>Teste testão testamento</HeaderText>
-    </PageContainer>
+    </>
   );
 }
 

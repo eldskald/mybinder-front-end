@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 import { useRequest, usePopup } from 'hooks';
 import { UserContext } from 'contexts';
 import { PulseLoader } from 'react-spinners';
+import { loginGate } from 'services';
 import {
   Container,
   FormContainer,
@@ -16,26 +17,21 @@ import {
 } from './Settings.styles';
 
 function Settings() {
+  const [oldPassword, setOldPassword] = useState<string>('');
+  const [newPassword, setNewPassword] = useState<string>('');
+  const [passwordConfirm, setPasswordConfirm] = useState<string>('');
+  const [displayname, setDisplayname] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const { user, setUser } = useContext(UserContext);
-  const [oldPassword, setOldPassword] = useState('');
-  const [newPassword, setNewPassword] = useState('');
-  const [passwordConfirm, setPasswordConfirm] = useState('');
-  const [displayname, setDisplayname] = useState(user ? user.displayname : '');
-  const [message, setMessage] = useState('');
+  const [submitting, sendRequest] = useRequest('put', '/users/update');
   const navigate = useNavigate();
   const popup = usePopup();
-  const [submitting, sendRequest] = useRequest(
-    'put',
-    `/users/update/`,
-    { headers: {
-      Authorization: `Bearer ${user?.token}`
-    }}
-  );
 
+  loginGate(navigate);
   useEffect(() => {
-    if (!user) navigate('/');
-  }, [user])
-
+    if (user) setDisplayname(user.displayname);
+  }, [user]);
+  
   function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     if (submitting || !user) return;
@@ -72,7 +68,8 @@ function Settings() {
       },
       err => {
         setMessage(err.message);
-      }
+      },
+      { headers: { Authorization: `Bearer ${user?.token}` }}
     );
   }
 
@@ -93,6 +90,7 @@ function Settings() {
             type='password'
             value={oldPassword}
             onChange={e => setOldPassword(e.target.value)}
+            disabled={submitting}
           />
           <InputLabel htmlFor='newPassword'>New password</InputLabel>
           <InputField
@@ -100,6 +98,7 @@ function Settings() {
             type='password'
             value={newPassword}
             onChange={e => setNewPassword(e.target.value)}
+            disabled={submitting}
           />
           <InputLabel htmlFor='passwordConfirm'>Confirm new password</InputLabel>
           <InputField
@@ -107,6 +106,7 @@ function Settings() {
             type='password'
             value={passwordConfirm}
             onChange={e => setPasswordConfirm(e.target.value)}
+            disabled={submitting}
           />
           <Text>
             Change your display name
@@ -117,6 +117,7 @@ function Settings() {
             type='text'
             value={displayname}
             onChange={e => setDisplayname(e.target.value)}
+            disabled={submitting}
           />
           {message ? (
             <MessageContainer>{message}</MessageContainer>

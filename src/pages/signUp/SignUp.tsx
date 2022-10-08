@@ -35,7 +35,7 @@ function SignUp() {
     setMessage('');
     sendRequest(
       { username, displayname, password },
-      _res => {
+      () => {
         popup('Account created successfully.', () => {navigate('/')});
       },
       err => {
@@ -61,6 +61,7 @@ function SignUp() {
             type='text'
             value={username}
             onChange={e => setUsername(e.target.value)}
+            disabled={submitting}
             autoFocus
           />
           <InputLabel htmlFor='displayname'>Displayname</InputLabel>
@@ -69,6 +70,7 @@ function SignUp() {
             type='text'
             value={displayname}
             onChange={e => setDisplayname(e.target.value)}
+            disabled={submitting}
           />
           <InputLabel htmlFor='password'>Password</InputLabel>
           <InputField
@@ -76,6 +78,7 @@ function SignUp() {
             type='password'
             value={password}
             onChange={e => setPassword(e.target.value)}
+            disabled={submitting}
           />
           <InputLabel htmlFor='passwordConfirm'>Confirm Password</InputLabel>
           <InputField
@@ -83,6 +86,7 @@ function SignUp() {
             type='password'
             value={passwordConfirm}
             onChange={e => setPasswordConfirm(e.target.value)}
+            disabled={submitting}
           />
           {message ? (
             <MessageContainer>{message}</MessageContainer>

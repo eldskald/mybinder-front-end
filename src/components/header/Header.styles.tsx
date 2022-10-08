@@ -116,16 +116,17 @@ export const DropdownButton = styled.div<{ active: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
+  transform: rotate(-90deg);
 
   :hover {
-    transform: scale(1.3);
+    transform: rotate(-90deg) scale(1.3);
   }
     
   ${(props) => (
     props.active && css`
-      transform: rotate(-90deg);
+      transform: rotate(0deg);
       :hover {
-        transform: rotate(-90deg) scale(1.3);
+        transform: rotate(0deg) scale(1.3);
       }
     `
   )};

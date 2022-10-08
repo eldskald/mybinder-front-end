@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 import { UseRequestResponse, UseRequestError, UseRequestReturn } from 'utils/types';
 
 const API_URL: string = import.meta.env.VITE_API_URL as string;
@@ -7,33 +7,50 @@ const API_URL: string = import.meta.env.VITE_API_URL as string;
 function useRequest<Type>(
   method: 'get' | 'post' | 'put' | 'patch' | 'delete',
   route: string,
-  headers: object = {}
 ): UseRequestReturn<Type> {
   const [loading, setLoading] = useState<boolean>(false);
 
   function sendRequest(
     body: object,
     thenFn: (res: UseRequestResponse<Type>) => void,
-    catchFn: (err: UseRequestError) => void
+    catchFn: (err: UseRequestError) => void,
+    config?: AxiosRequestConfig<any>,
   ) {
     setLoading(true);
-    axios[method](
-      API_URL + route,
-      body,
-      headers
-    )
-      .then(res => {
-        thenFn({ status: res.status, data: res.data as Type });
-        setLoading(false);
-      })
-      .catch(err => {
-        let error: UseRequestError = { status: 500, message: 'Internal server error' };
-        if (axios.isAxiosError(err) && err.response)
-          error = { status: err.response.status, message: err.response.data as string };
-        else console.log(err);
-        catchFn(error);
-        setLoading(false);
-      });
+    const url = API_URL + route;
+    const thenFunc = (res: AxiosResponse<any, any>) => {
+      thenFn({ status: res.status, data: res.data as Type });
+      setLoading(false);
+    };
+    const catchFunc = (err: any) => {
+      let error: UseRequestError = { status: 500, message: 'Internal server error' };
+      if (axios.isAxiosError(err) && err.response)
+        error = { status: err.response.status, message: err.response.data as string };
+      else console.log(err);
+      catchFn(error);
+      setLoading(false);
+    };
+    switch (method) {
+      case 'get': {
+        axios.get(url, config).then(thenFunc).catch(catchFunc);
+        break;
+      }
+      case 'post': {
+        axios.post(url, body, config).then(thenFunc).catch(catchFunc);
+        break;
+      }
+      case 'put': {
+        axios.put(url, body, config).then(thenFunc).catch(catchFunc);
+        break;
+      }
+      case 'patch': {
+        axios.patch(url, body, config).then(thenFunc).catch(catchFunc);
+        break;
+      }
+      case 'delete': {
+        axios.delete(url, config).then(thenFunc).catch(catchFunc);
+      }
+    }
   }
   
   return [loading, sendRequest];

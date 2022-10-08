@@ -27,6 +27,7 @@ function autoLogin(
     )
       .then(res => {
         setUser({
+          userId: res.data.id,
           username: res.data.username,
           displayname: res.data.displayname,
           token

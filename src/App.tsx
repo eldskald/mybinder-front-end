@@ -9,7 +9,8 @@ import {
   Landing,
   SignUp,
   Login,
-  Settings
+  Settings,
+  Dashboard
 } from 'pages';
 
 function App() {
@@ -23,20 +24,26 @@ function App() {
       <UserContext.Provider value={{ user, setUser }}>
         <PopupContext.Provider value={{ popups, setPopups }}>
           <BrowserRouter>
-            <Header />
-            <Main>
-              <PageContainer>
-                <Routes>
-                  <Route path='/' element={<Landing />} />
-                  <Route path='/sign-up' element={<SignUp />} />
-                  <Route path='/login' element={<Login />} />
-                  <Route path='/settings' element={<Settings />} />
-                </Routes>
-                <Spacer length='242px' />
-              </PageContainer>
-            </Main>
-            <CoverSpinner loading={loadingUser} />
-            <Popup />
+            {!loadingUser ? (
+              <>
+                <Header />
+                <Main>
+                  <PageContainer>
+                    <Routes>
+                      <Route path='/' element={<Landing />} />
+                      <Route path='/sign-up' element={<SignUp />} />
+                      <Route path='/login' element={<Login />} />
+                      <Route path='/settings' element={<Settings />} />
+                      <Route path='/dashboard' element={<Dashboard />} />
+                    </Routes>
+                    <Spacer length='242px' />
+                  </PageContainer>
+                </Main>
+                <Popup />
+              </>
+            ) : (
+              <CoverSpinner loading={loadingUser} />
+            )}
           </BrowserRouter>
         </PopupContext.Provider>
       </UserContext.Provider>

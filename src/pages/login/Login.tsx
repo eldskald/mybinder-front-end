@@ -19,9 +19,9 @@ import {
 } from './Login.styles';
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [message, setMessage] = useState<string>('');
   const { setUser } = useContext(UserContext);
   const [submitting, sendRequest] = useRequest<User>('post', '/sign-in');
   const navigate = useNavigate();
@@ -56,6 +56,7 @@ function Login() {
             type='text'
             value={username}
             onChange={e => setUsername(e.target.value)}
+            disabled={submitting}
             autoFocus
           />
           <InputLabel htmlFor='password'>Password</InputLabel>
@@ -64,6 +65,7 @@ function Login() {
             type='password'
             value={password}
             onChange={e => setPassword(e.target.value)}
+            disabled={submitting}
           />
           {message ? (
             <MessageContainer>{message}</MessageContainer>
