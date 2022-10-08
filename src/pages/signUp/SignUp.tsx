@@ -21,7 +21,7 @@ function SignUp() {
   const [password, setPassword] = useState<string>('');
   const [passwordConfirm, setPasswordConfirm] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [submitting, sendRequest] = useRequest('post', '/sign-up');
+  const [submitting, sendRequest] = useRequest();
   const popup = usePopup();
   const navigate = useNavigate();
 
@@ -34,6 +34,8 @@ function SignUp() {
     }
     setMessage('');
     sendRequest(
+      'post',
+      '/sign-up',
       { username, displayname, password },
       () => {
         popup('Account created successfully.', () => {navigate('/')});

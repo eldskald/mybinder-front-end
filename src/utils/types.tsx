@@ -45,6 +45,8 @@ export type UseRequestError = {
 export type UseRequestReturn<Type> = [
   loading: boolean,
   sendRequest: (
+    method: 'get' | 'post' | 'put' | 'patch' | 'delete',
+    route: string,
     body: object,
     thenFn: (res: UseRequestResponse<Type>) => void,
     catchFn: (err: UseRequestError) => void,

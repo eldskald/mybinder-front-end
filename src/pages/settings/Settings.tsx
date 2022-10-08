@@ -23,7 +23,7 @@ function Settings() {
   const [displayname, setDisplayname] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const { user, setUser } = useContext(UserContext);
-  const [submitting, sendRequest] = useRequest('put', '/users/update');
+  const [submitting, sendRequest] = useRequest();
   const navigate = useNavigate();
   const popup = usePopup();
 
@@ -53,6 +53,8 @@ function Settings() {
       data.displayname = displayname;
     }
     sendRequest(
+      'put',
+      '/users/update',
       data,
       () => {
         if (data.displayname) {

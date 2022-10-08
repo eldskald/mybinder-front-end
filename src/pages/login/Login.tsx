@@ -23,7 +23,7 @@ function Login() {
   const [password, setPassword] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const { setUser } = useContext(UserContext);
-  const [submitting, sendRequest] = useRequest<User>('post', '/sign-in');
+  const [submitting, sendRequest] = useRequest<User>();
   const navigate = useNavigate();
 
   function handleSubmit(e: React.SyntheticEvent) {
@@ -31,6 +31,8 @@ function Login() {
     if (submitting) return;
     setMessage('');
     sendRequest(
+      'post',
+      '/sign-in',
       { username, password },
       res => {
         login(res.data, setUser);

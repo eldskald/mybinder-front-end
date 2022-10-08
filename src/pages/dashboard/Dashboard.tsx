@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useRequest, usePopup } from 'hooks';
 import { UserContext } from 'contexts';
 import { loginGate } from 'services';
 import { MoonLoader, PulseLoader } from 'react-spinners';
+import { PageListItem } from 'components';
 import { Page } from 'utils/types';
 import {
   Container,
@@ -12,20 +13,28 @@ import {
   Text,
   FormContainer,
   InputWrapper,
+  InputDesc,
   InputField,
   MessageContainer,
-  SubmitButton
+  SubmitButton,
+  Spinner,
+  NoPagesMessage
 } from './Dashboard.styles';
 
 function Dashboard() {
   const [pages, setPages] = useState<Page[] | 'error'>([]);
   const [newPageTitle, setNewPageTitle] = useState<string>('');
   const [message, setMessage] = useState<string>('');
-  const [loadingPages, getPagesRequest] = useRequest<Page[]>('get', '/pages');
-  const [creatingPage, createPageRequest] = useRequest('post', '/pages');
   const { user } = useContext(UserContext);
   const navigate = useNavigate();
   const popup = usePopup();
+  const [creatingPage, createPageRequest] = useRequest();
+  const [loadingPages, getPagesRequest] = useRequest<{
+    id: number,
+    userId: number,
+    title: string,
+    createdAt: string
+  }[]>();
   
   loginGate(navigate);
   useEffect(loadPages, []);
@@ -33,9 +42,15 @@ function Dashboard() {
   function loadPages() {
     if (!user) return;
     getPagesRequest(
+      'get',
+      '/pages',
       {},
       res => {
-        setPages(res.data);
+        const data: Page[] = res.data.map(page => ({
+          pageId: page.id,
+          title: page.title
+        }));
+        setPages(data);
       },
       err => {
         popup(err.message);
@@ -49,9 +64,13 @@ function Dashboard() {
 
   function handleSubmitNewPage(e: React.SyntheticEvent) {
     e.preventDefault();
+    if (creatingPage) return;
+    setMessage('');
     createPageRequest(
+      'post',
+      '/pages',
       { title: newPageTitle },
-      _res => {
+      () => {
         loadPages();
         setNewPageTitle('');
       },
@@ -76,12 +95,13 @@ function Dashboard() {
         </Text>
         <FormContainer onSubmit={handleSubmitNewPage}>
           <InputWrapper>
-            <Text>{`mybinder.com/${user?.username}/`}</Text>
+            <InputDesc>{`mybinder.com/${user?.username}/`}</InputDesc>
             <InputField
               id='newPageTitle'
-              type='newPageTitle'
+              type='text'
               value={newPageTitle}
-              placeholder='new-page-name'
+              placeholder='new-page-link'
+              disabled={creatingPage}
               onChange={e => setNewPageTitle(e.target.value)}
             />
           </InputWrapper>
@@ -102,6 +122,36 @@ function Dashboard() {
           </SubmitButton>
         </FormContainer>
       </Container>
+      {loadingPages ? (
+        <Spinner>
+          <MoonLoader
+            size={120}
+            color='var(--maincolor)'
+          />
+        </Spinner>
+      ) : (
+        pages === 'error' ? (
+          <MessageContainer>
+            Loading pages failed!
+          </MessageContainer>
+        ) : (
+          pages.length === 0 ? (
+            <NoPagesMessage>
+              You have no pages. Create one!
+            </NoPagesMessage>
+          ) : (
+            <NoPagesMessage>
+              {pages.map((value, index) => (
+                <PageListItem
+                  key={index}
+                  page={value}
+                  reloadPages={loadPages}
+                />
+              ))}
+            </NoPagesMessage>
+          )
+        )
+      )}
     </>
   );
 }

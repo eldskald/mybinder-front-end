@@ -50,10 +50,6 @@ export const InputLabel = styled.label`
   font-family: var(--scriptfont);
   font-size: 18px;
   color: var(--textcolor1);
-
-  :disabled {
-    color: var(--textcolor2);
-  }
 `;
 
 export const InputField = styled.input`
