@@ -39,7 +39,7 @@ function App() {
                       <Route path='/settings' element={<Settings />} />
                       <Route path='/dashboard' element={<Dashboard />} />
                       <Route path='/edit/:pageUrl' element={<EditPage />} />
-                      <Route path='/:username/:pageUrl' element={<ViewPage />} />
+                      <Route path='/view/:username/:pageUrl' element={<ViewPage />} />
                     </Routes>
                   </Main>
                   <Popup />
