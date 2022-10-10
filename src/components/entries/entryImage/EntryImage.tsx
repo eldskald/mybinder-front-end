@@ -4,7 +4,7 @@ import { ImageWrapper } from './EntryImage.styles';
 function EntryImage(props: { entry: Entry }) {
   const { imageUrl } = props.entry;
   return (
-    <ImageWrapper src={imageUrl} />
+    <ImageWrapper src={imageUrl} alt={imageUrl} />
   );
 }
 
