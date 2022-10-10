@@ -11,6 +11,10 @@ export const MainContainer = styled.div`
   align-items: center;
   overflow-y: scroll;
   background-image: linear-gradient(to bottom right, var(--bgcolor1), var(--bgcolor2));
+
+  @media (max-width: 1024px) {
+    position: fixed;
+  }
 `;
 
 export const PageContainer = styled.div`
