@@ -63,6 +63,7 @@ function SignUp() {
             type='text'
             value={username}
             onChange={e => setUsername(e.target.value)}
+            data-cy='USERNAME'
             disabled={submitting}
             autoFocus
           />
@@ -72,6 +73,7 @@ function SignUp() {
             type='text'
             value={displayname}
             onChange={e => setDisplayname(e.target.value)}
+            data-cy='DISPLAYNAME'
             disabled={submitting}
           />
           <InputLabel htmlFor='password'>Password</InputLabel>
@@ -80,6 +82,7 @@ function SignUp() {
             type='password'
             value={password}
             onChange={e => setPassword(e.target.value)}
+            data-cy='PASSWORD'
             disabled={submitting}
           />
           <InputLabel htmlFor='passwordConfirm'>Confirm Password</InputLabel>
@@ -88,6 +91,7 @@ function SignUp() {
             type='password'
             value={passwordConfirm}
             onChange={e => setPasswordConfirm(e.target.value)}
+            data-cy='PASSWORD_CONFIRM'
             disabled={submitting}
           />
           {message ? (
@@ -95,7 +99,7 @@ function SignUp() {
           ) : (
             <></>
           )}
-          <SubmitButton type='submit'>
+          <SubmitButton type='submit' data-cy='SUBMIT'>
             {submitting ? (
               <PulseLoader
                 color={'var(--contrastcolor1)'}

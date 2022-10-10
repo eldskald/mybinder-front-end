@@ -59,10 +59,10 @@ function Header() {
             </UserContainer>
           ) : (
             <Buttons>
-              <Link to='/login'>
+              <Link to='/login' data-cy='LOGIN'>
                 Login
               </Link>
-              <Link to='/sign-up'>
+              <Link to='/sign-up' data-cy='SIGN_UP'>
                 Sign Up
               </Link>
             </Buttons>

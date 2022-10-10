@@ -35,11 +35,11 @@ function Popup() {
           {message}
         </Message>
         <ButtonContainer>
-          <OkButton onClick={handleOk}>
+          <OkButton onClick={handleOk} data-cy='POPUP_OK'>
             Ok
           </OkButton>
           {onCancel ? (
-            <CancelButton onClick={handleCancel}>
+            <CancelButton onClick={handleCancel} data-cy='POPUP_CANCEL'>
               Cancel
             </CancelButton>
           ) : (<></>)}

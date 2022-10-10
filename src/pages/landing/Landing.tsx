@@ -3,7 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { MdAutoStories } from 'react-icons/md';
 import { UserContext } from 'contexts';
-import { getToken } from 'services';
 import {
   LogoWrapper,
   TitleWrapper,

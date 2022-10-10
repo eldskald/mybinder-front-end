@@ -58,6 +58,7 @@ function Login() {
             type='text'
             value={username}
             onChange={e => setUsername(e.target.value)}
+            data-cy='USERNAME'
             disabled={submitting}
             autoFocus
           />
@@ -67,6 +68,7 @@ function Login() {
             type='password'
             value={password}
             onChange={e => setPassword(e.target.value)}
+            data-cy='PASSWORD'
             disabled={submitting}
           />
           {message ? (
@@ -74,7 +76,7 @@ function Login() {
           ) : (
             <></>
           )}
-          <SubmitButton type='submit'>
+          <SubmitButton type='submit' data-cy='SUBMIT'>
             {submitting ? (
               <PulseLoader
                 color={'var(--contrastcolor1)'}
