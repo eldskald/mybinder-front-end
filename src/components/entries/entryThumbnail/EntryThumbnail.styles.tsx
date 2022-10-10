@@ -46,6 +46,10 @@ export const InnerContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  @media (max-width: 800px) {
+    flex-direction: column;
+  }
 `;
 
 export const ImgAndDescWrapper = styled.div`
@@ -63,6 +67,10 @@ export const ImgAndDescWrapper = styled.div`
     font-size: 16px;
     color: var(--textcolor1);
   }
+
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `;
 
 export const TextWrapper = styled.div`
@@ -70,4 +78,8 @@ export const TextWrapper = styled.div`
   font-family: var(--scriptfont);
   font-size: 16px;
   color: var(--textcolor1);
+
+  @media (max-width: 800px) {
+    width: 100%;
+  }
 `;
