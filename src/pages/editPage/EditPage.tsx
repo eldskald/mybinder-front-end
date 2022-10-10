@@ -68,7 +68,7 @@ function EditPage() {
       </Helmet>
       {loadingEntries ? (
         <Spinner>
-          <MoonLoader />
+          <MoonLoader color='var(--maincolor)' />
         </Spinner>
       ) : (
         pageError ? (

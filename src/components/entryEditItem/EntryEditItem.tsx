@@ -44,9 +44,11 @@ function EntryEditItem(props: {
   const [deleting, deleteRequest] = useRequest();
   const [moving, moveRequest] = useRequest();
 
+  useEffect(() => {}, [])
+
   function handleDelete(e: React.SyntheticEvent) {
     e.preventDefault();
-    if (deleting) return;
+    if (deleting || moving) return;
     popup(
       'Delete this entry?',
       () => deleteRequest(
@@ -97,7 +99,7 @@ function EntryEditItem(props: {
 
   function handleMoveUp(e: React.SyntheticEvent) {
     e.preventDefault();
-    if (moving) return;
+    if (moving  || deleting) return;
     moveRequest(
       'patch',
       `/entries/move-up/${pageId}/${entry.id}`,
@@ -116,7 +118,7 @@ function EntryEditItem(props: {
 
   function handleMoveDown(e: React.SyntheticEvent) {
     e.preventDefault();
-    if (moving) return;
+    if (moving || deleting) return;
     moveRequest(
       'patch',
       `/entries/move-down/${pageId}/${entry.id}`,
@@ -150,12 +152,11 @@ function EntryEditItem(props: {
           <InputDesc>
             Entry type:
           </InputDesc>
-          <EntryTypeInput>
+          <EntryTypeInput value={type}>
             <option value='title' onClick={() => setType('title')}>Title</option>
             <option value='thumbnail' onClick={() => setType('thumbnail')}>Thumbnail</option>
             <option value='text' onClick={() => setType('text')}>Text</option>
             <option value='image' onClick={() => setType('image')}>Image</option>
-            <option value='space' onClick={() => setType('space')}>Spacer</option>
           </EntryTypeInput>
         </InputWrapper>
         <InputWrapper show={type === 'title' || type === 'thumbnail' || type === 'text'}>

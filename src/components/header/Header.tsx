@@ -4,7 +4,7 @@ import { MdAutoStories, MdLogout, MdOutlineSettings } from 'react-icons/md';
 import { IoIosArrowDropdown } from 'react-icons/io';
 import { RiDashboardLine } from 'react-icons/ri';
 import { usePopup } from 'hooks';
-import { UserContext } from 'contexts';
+import { UserContext, HeaderContext } from 'contexts';
 import { logout } from 'services';
 import {
   Buttons,
@@ -19,6 +19,7 @@ import {
 function Header() {
   const [dropdown, setDropdown] = useState<boolean>(false);
   const { user, setUser } = useContext(UserContext);
+  const { noHeader } = useContext(HeaderContext);
   const navigate = useNavigate();
   const location = useLocation();
   const popup = usePopup();
@@ -36,46 +37,50 @@ function Header() {
   }
 
   return (
-    <>
-      <Container>
-        <Logo>
-          <Link to='/'>
-            <MdAutoStories />
-            <p>MyBinder</p>
+    noHeader ? (
+      <></>
+    ) : (
+      <>
+        <Container>
+          <Logo>
+            <Link to='/'>
+              <MdAutoStories />
+              <p>MyBinder</p>
+            </Link>
+          </Logo>
+          {user ? (
+            <UserContainer>
+              <UserMessage>
+                {`Hi, ${user.displayname}!`}
+              </UserMessage>
+              <DropdownButton active={dropdown}>
+                <IoIosArrowDropdown onClick={() => setDropdown(prev => !prev)} />
+              </DropdownButton>
+            </UserContainer>
+          ) : (
+            <Buttons>
+              <Link to='/login'>
+                Login
+              </Link>
+              <Link to='/sign-up'>
+                Sign Up
+              </Link>
+            </Buttons>
+          )}
+        </Container>
+        <DropdownMenu active={dropdown}>
+          <Link to='/dashboard'>
+            <RiDashboardLine />Dashboard
           </Link>
-        </Logo>
-        {user ? (
-          <UserContainer>
-            <UserMessage>
-              {`Hi, ${user.displayname}!`}
-            </UserMessage>
-            <DropdownButton active={dropdown}>
-              <IoIosArrowDropdown onClick={() => setDropdown(prev => !prev)} />
-            </DropdownButton>
-          </UserContainer>
-        ) : (
-          <Buttons>
-            <Link to='/login'>
-              Login
-            </Link>
-            <Link to='/sign-up'>
-              Sign Up
-            </Link>
-          </Buttons>
-        )}
-      </Container>
-      <DropdownMenu active={dropdown}>
-        <Link to='/dashboard'>
-          <RiDashboardLine />Dashboard
-        </Link>
-        <Link to='/settings'>
-          <MdOutlineSettings />Account settings
-        </Link>
-        <div onClick={handleLogout}>
-          <MdLogout />Log Out
-        </div>
-      </DropdownMenu>
-    </>
+          <Link to='/settings'>
+            <MdOutlineSettings />Account settings
+          </Link>
+          <div onClick={handleLogout}>
+            <MdLogout />Log Out
+          </div>
+        </DropdownMenu>
+      </>
+    )
   );
 }
 

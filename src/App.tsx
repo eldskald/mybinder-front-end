@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { UserContext, PopupContext } from 'contexts';
+import { UserContext, PopupContext, HeaderContext } from 'contexts';
 import { autoLogin } from 'services';
-import { GlobalStyle, Main, PageContainer, Spacer } from 'assets/styles';
-import { CoverSpinner, Header, Popup } from 'components';
+import { GlobalStyle } from 'assets/styles';
+import { Main, CoverSpinner, Header, Popup } from 'components';
 import { User, PopupData } from 'utils/types'
 import {
   Landing,
@@ -11,12 +11,14 @@ import {
   Login,
   Settings,
   Dashboard,
-  EditPage
+  EditPage,
+  ViewPage
 } from 'pages';
 
 function App() {
   const [user, setUser] = useState<User | null>(null);
   const [popups, setPopups] = useState<PopupData[]>([]);
+  const [noHeader, setNoHeader] = useState<boolean>(false);
   const [loadingUser] = autoLogin(setUser);
 
   return (
@@ -24,12 +26,12 @@ function App() {
       <GlobalStyle />
       <UserContext.Provider value={{ user, setUser }}>
         <PopupContext.Provider value={{ popups, setPopups }}>
-          <BrowserRouter>
-            {!loadingUser ? (
-              <>
-                <Header />
-                <Main>
-                  <PageContainer>
+          <HeaderContext.Provider value={{ noHeader, setNoHeader }}>
+            <BrowserRouter>
+              {!loadingUser ? (
+                <>
+                  <Header />
+                  <Main>
                     <Routes>
                       <Route path='/' element={<Landing />} />
                       <Route path='/sign-up' element={<SignUp />} />
@@ -37,16 +39,16 @@ function App() {
                       <Route path='/settings' element={<Settings />} />
                       <Route path='/dashboard' element={<Dashboard />} />
                       <Route path='/edit/:pageUrl' element={<EditPage />} />
+                      <Route path='/:username/:pageUrl' element={<ViewPage />} />
                     </Routes>
-                    <Spacer length='242px' />
-                  </PageContainer>
-                </Main>
-                <Popup />
-              </>
-            ) : (
-              <CoverSpinner loading={loadingUser} />
-            )}
-          </BrowserRouter>
+                  </Main>
+                  <Popup />
+                </>
+              ) : (
+                <CoverSpinner loading={loadingUser} />
+              )}
+            </BrowserRouter>
+          </HeaderContext.Provider>
         </PopupContext.Provider>
       </UserContext.Provider>
     </>
