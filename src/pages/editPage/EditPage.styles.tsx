@@ -2,23 +2,29 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 800px;
-  height: fit-content;
+  height: 240px;
   margin: 32px 0px;
   border: 2px solid var(--textcolor1);
   border-radius: 32px;
-  padding: 0px 32px;
-  background-image: linear-gradient(
-    to bottom right,
-    var(--divcolor1-light) 0%,
-    var(--divcolor1) 60%,
-    var(--divcolor1-dark) 100%);
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--headerfont);
+  font-size: 32px;
+  color: var(--textcolor1);
+  cursor: pointer;
+  transition: 0.2s;
+
+  :hover {
+    color: var(--maincolor);
+    border-color: var(--maincolor);
+  }
 
   @media (max-width: 800px) {
-    width: 100%;
-    padding: 0px 16px;
-    border-radius: 0px;
-    border-left: none;
-    border-right: none;
+    width: calc(100% - 64px);
+    margin: 32px;
   }
 `;
 
@@ -29,4 +35,12 @@ export const ErrorMessage = styled.div`
   font-size: 24px;
   text-align: center;
   color: var(--contrastcolor3);
+`;
+
+export const Spinner = styled.div`
+  width: 100%;
+  margin-top: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
