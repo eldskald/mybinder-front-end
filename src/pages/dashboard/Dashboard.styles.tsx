@@ -34,7 +34,7 @@ export const TitleWrapper = styled.div`
 export const Text = styled.div`
   margin: 32px 0px 8px 0px;
   font-family: var(--headerfont);
-  font-size: 32px;
+  font-size: 28px;
   color: var(--textcolor1);
 `;
 
