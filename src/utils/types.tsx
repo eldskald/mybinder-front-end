@@ -10,12 +10,13 @@ export type User = {
 export type Page = {
   pageId: number,
   title: string,
-  entries?: Entry[]
+  urlName: string
 }
+
+export type FullPage = Page & { entries: Entry[] };
 
 export type EntryType =
   'title' |
-  'banner' |
   'image' |
   'thumbnail' |
   'text' |
@@ -23,13 +24,14 @@ export type EntryType =
 
 export type Entry = {
   entryId: number,
-  type: EntryType
-  title?: string
-  description?: string
-  text?: string
-  imageUrl?: string
-  sourceUrl?: string
-  space?: number
+  type: EntryType,
+  index: number,
+  title: string,
+  description: string,
+  text: string,
+  imageUrl: string,
+  sourceUrl: string,
+  space: number
 }
 
 export type UseRequestResponse<Type> = {

@@ -62,10 +62,11 @@ export const Title = styled.div`
   color: var(--textcolor1);
 `;
 
-export const ChangeTitleForm= styled.form`
+export const UpdateForm= styled.form`
   width: 100%;
   display: flex;
   flex-direction: column;
+  margin-top: 32px;
 `;
 
 export const InputWrapper = styled.div`
@@ -129,6 +130,7 @@ export const ButtonsWrapper = styled.div`
   margin: 32px 0px 0px 24px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 
   a:first-child {
     width: 120px;
@@ -136,7 +138,6 @@ export const ButtonsWrapper = styled.div`
     font-family: var(--headerfont);
     font-size: 24px;
     color: var(--contrastcolor1);
-    margin-left: 32px;
     border-radius: 8px;
     background-color: var(--contrastcolor2);
     display: flex;
@@ -153,10 +154,9 @@ export const ButtonsWrapper = styled.div`
     }
   }
 
-  a:last-child {
+  a:nth-child(2) {
     font-family: var(--headerfont);
     font-size: 24px;
-    margin-left: 72px;
     color: var(--contrastcolor2);
     display: flex;
     align-items: center;

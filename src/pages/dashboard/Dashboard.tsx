@@ -23,6 +23,7 @@ import {
 
 function Dashboard() {
   const [pages, setPages] = useState<Page[] | 'error'>([]);
+  const [newPageUrl, setNewPageUrl] = useState<string>('');
   const [newPageTitle, setNewPageTitle] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const { user } = useContext(UserContext);
@@ -33,6 +34,7 @@ function Dashboard() {
     id: number,
     userId: number,
     title: string,
+    urlName: string,
     createdAt: string
   }[]>();
   
@@ -48,7 +50,8 @@ function Dashboard() {
       res => {
         const data: Page[] = res.data.map(page => ({
           pageId: page.id,
-          title: page.title
+          title: page.title,
+          urlName: page.urlName
         }));
         setPages(data);
       },
@@ -69,10 +72,13 @@ function Dashboard() {
     createPageRequest(
       'post',
       '/pages',
-      { title: newPageTitle },
+      {
+        title: newPageTitle,
+        urlName: newPageUrl
+      },
       () => {
         loadPages();
-        setNewPageTitle('');
+        setNewPageUrl('');
       },
       err => {
         setMessage(err.message);
@@ -95,14 +101,25 @@ function Dashboard() {
         </Text>
         <FormContainer onSubmit={handleSubmitNewPage}>
           <InputWrapper>
-            <InputDesc>{`mybinder.com/${user?.username}/`}</InputDesc>
+            <InputDesc>Page title:</InputDesc>
             <InputField
               id='newPageTitle'
               type='text'
               value={newPageTitle}
-              placeholder='new-page-link'
+              placeholder="New page's title"
               disabled={creatingPage}
               onChange={e => setNewPageTitle(e.target.value)}
+            />
+          </InputWrapper>
+          <InputWrapper>
+            <InputDesc>{`mybinder.com/${user?.username}/`}</InputDesc>
+            <InputField
+              id='urlName'
+              type='text'
+              value={newPageUrl}
+              placeholder='new-page-link'
+              disabled={creatingPage}
+              onChange={e => setNewPageUrl(e.target.value)}
             />
           </InputWrapper>
           {message ? (

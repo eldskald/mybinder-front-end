@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useRequest, usePopup } from 'hooks';
 import { UserContext } from 'contexts';
 import { Page } from 'utils/types';
@@ -7,12 +7,11 @@ import { FaEdit, FaTrashAlt } from 'react-icons/fa';
 import { VscOpenPreview } from 'react-icons/vsc';
 import {
   Container,
-  ChangeTitleForm,
+  Title,
+  UpdateForm,
   InputWrapper,
   InputField,
   SubmitButton,
-  Title,
-  TitleAndDeleteWrapper,
   DeleteButton,
   MessageContainer,
   ButtonsWrapper
@@ -21,10 +20,12 @@ import {
 function PageListItem(props: { page: Page, reloadPages: () => void }) {
   const { page, reloadPages } = props;
   const [newTitle, setNewTitle] = useState<string>(page.title);
+  const [newUrlName, setNewUrlName] = useState<string>(page.urlName);
   const [message, setMessage] = useState<string>('');
   const { user } = useContext(UserContext);
   const popup = usePopup();
   const [changingTitle, changeTitleRequest] = useRequest();
+  const [changingUrl, changeUrlRequest] = useRequest();
   const [deleting, deleteRequest] = useRequest();
   
   function handleClickDelete(e: React.SyntheticEvent) {
@@ -57,8 +58,24 @@ function PageListItem(props: { page: Page, reloadPages: () => void }) {
     setMessage('');
     changeTitleRequest(
       'patch',
-      `/pages/changeTitle/${page.pageId}`,
+      `/pages/${page.pageId}`,
       { title: newTitle },
+      reloadPages,
+      err => setMessage(err.message),
+      { headers: {
+        Authorization: `Bearer ${user?.token}`
+      }}
+    );
+  }
+
+  function handleChangeUrl(e: React.SyntheticEvent) {
+    e.preventDefault();
+    if (changingUrl) return;
+    setMessage('');
+    changeUrlRequest(
+      'patch',
+      `/pages/${page.pageId}`,
+      { urlName: newUrlName },
       reloadPages,
       err => setMessage(err.message),
       { headers: {
@@ -69,16 +86,8 @@ function PageListItem(props: { page: Page, reloadPages: () => void }) {
 
   return (
     <Container>
-      <TitleAndDeleteWrapper>
-        <Title>{page.title}</Title>
-        <DeleteButton
-          onClick={handleClickDelete}
-          disabled={deleting}
-        >
-          <FaTrashAlt /> Delete
-        </DeleteButton>
-      </TitleAndDeleteWrapper>
-      <ChangeTitleForm onSubmit={handleChangeTitle}>
+      <Title>{page.title}</Title>
+      <UpdateForm onSubmit={handleChangeTitle}>
         <InputWrapper>
           <InputField
             id='changeTitle'
@@ -88,22 +97,42 @@ function PageListItem(props: { page: Page, reloadPages: () => void }) {
             onChange={e => setNewTitle(e.target.value)}
           />
           <SubmitButton type='submit'>
-            Update name
+            Update Title
           </SubmitButton>
         </InputWrapper>
-      </ChangeTitleForm>
+      </UpdateForm>
+      <UpdateForm onSubmit={handleChangeUrl}>
+        <InputWrapper>
+          <InputField
+            id='changeTitle'
+            type='text'
+            value={newUrlName}
+            disabled={changingUrl}
+            onChange={e => setNewUrlName(e.target.value)}
+          />
+          <SubmitButton type='submit'>
+            Update URL
+          </SubmitButton>
+        </InputWrapper>
+      </UpdateForm>
       {message ? (
         <MessageContainer>{message}</MessageContainer>
       ) : (
         <></>
       )}
       <ButtonsWrapper>
-        <Link to={`/edit/${user?.username}/${page.title}`}>
+        <Link to={`/edit/${page.urlName}`}>
           <FaEdit /> Edit
         </Link>
-        <Link to={`/${user?.username}/${page.title}`} target={'_blank'}>
-          <VscOpenPreview /> Preview
+        <Link to={`/${user?.username}/${page.urlName}`} target={'_blank'}>
+          <VscOpenPreview /> View
         </Link>
+        <DeleteButton
+          onClick={handleClickDelete}
+          disabled={deleting}
+        >
+          <FaTrashAlt /> Delete
+        </DeleteButton>
       </ButtonsWrapper>
     </Container>
   );

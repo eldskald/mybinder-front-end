@@ -36,7 +36,7 @@ function Login() {
       { username, password },
       res => {
         login(res.data, setUser);
-        navigate('/');
+        navigate('/dashboard');
       },
       err => {
         setMessage(err.message);

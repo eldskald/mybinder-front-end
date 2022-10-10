@@ -32,7 +32,7 @@ export const TitleWrapper = styled.div`
 `;
 
 export const Text = styled.div`
-  margin: 32px 0px 24px 0px;
+  margin: 32px 0px 8px 0px;
   font-family: var(--headerfont);
   font-size: 32px;
   color: var(--textcolor1);
@@ -45,6 +45,7 @@ export const FormContainer = styled.form`
 `;
 
 export const InputWrapper = styled.div`
+  margin-top: 16px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -55,6 +56,7 @@ export const InputDesc = styled.div`
   font-size: 16px;
   color: var(--textcolor1);
   text-align: center;
+  white-space: nowrap;
 `;
 
 export const InputField = styled.input`

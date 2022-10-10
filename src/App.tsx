@@ -10,7 +10,8 @@ import {
   SignUp,
   Login,
   Settings,
-  Dashboard
+  Dashboard,
+  EditPage
 } from 'pages';
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
                       <Route path='/login' element={<Login />} />
                       <Route path='/settings' element={<Settings />} />
                       <Route path='/dashboard' element={<Dashboard />} />
+                      <Route path='/edit/:pageUrl' element={<EditPage />} />
                     </Routes>
                     <Spacer length='242px' />
                   </PageContainer>
