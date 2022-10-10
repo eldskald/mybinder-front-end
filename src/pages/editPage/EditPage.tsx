@@ -23,22 +23,7 @@ function EditPage() {
   const { pageUrl } = useParams();
   const navigate = useNavigate();
   const popup = usePopup();
-const [loadingEntries, loadEntriesRequest] = useRequest<{
-  id: number,
-  title: string,
-  entries: {
-    id: number,
-    pageId: number,
-    index: number,
-    type: 'title' | 'thumbnail' | 'text' | 'image' | 'space',
-    title: string,
-    description: string,
-    text: string,
-    imageUrl: string,
-    sourceUrl: string,
-    space: number
-  }[]
-}>();
+  const [loadingEntries, loadEntriesRequest] = useRequest<FullPage>();
   const [creatingEntry, createEntryRequest] = useRequest();
 
   useEffect(loadEntries, []);
@@ -51,17 +36,7 @@ const [loadingEntries, loadEntriesRequest] = useRequest<{
       `/entries/${user?.username}/${pageUrl}`,
       {},
       res => {
-        setEntries(res.data.entries.map(value => ({
-          entryId: value.id,
-          type: value.type,
-          index: value.index,
-          title: value.title,
-          description: value.description,
-          text: value.text,
-          imageUrl: value.imageUrl,
-          sourceUrl: value.sourceUrl,
-          space: value.space
-        })));
+        setEntries(res.data.entries);
         setPageId(res.data.id);
         setPageTitle(res.data.title);
       },

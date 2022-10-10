@@ -30,13 +30,7 @@ function Dashboard() {
   const navigate = useNavigate();
   const popup = usePopup();
   const [creatingPage, createPageRequest] = useRequest();
-  const [loadingPages, getPagesRequest] = useRequest<{
-    id: number,
-    userId: number,
-    title: string,
-    urlName: string,
-    createdAt: string
-  }[]>();
+  const [loadingPages, getPagesRequest] = useRequest<Page[]>();
   
   loginGate(navigate);
   useEffect(loadPages, []);
@@ -48,12 +42,7 @@ function Dashboard() {
       '/pages',
       {},
       res => {
-        const data: Page[] = res.data.map(page => ({
-          pageId: page.id,
-          title: page.title,
-          urlName: page.urlName
-        }));
-        setPages(data);
+        setPages(res.data);
       },
       err => {
         popup(err.message);

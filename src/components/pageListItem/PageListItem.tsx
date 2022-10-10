@@ -35,7 +35,7 @@ function PageListItem(props: { page: Page, reloadPages: () => void }) {
       () => {
         deleteRequest(
           'delete',
-          `/pages/${page.pageId}`,
+          `/pages/${page.id}`,
           {},
           () => {
             popup('Page deleted successfully', reloadPages);
@@ -58,7 +58,7 @@ function PageListItem(props: { page: Page, reloadPages: () => void }) {
     setMessage('');
     changeTitleRequest(
       'patch',
-      `/pages/${page.pageId}`,
+      `/pages/${page.id}`,
       { title: newTitle },
       reloadPages,
       err => setMessage(err.message),
@@ -74,7 +74,7 @@ function PageListItem(props: { page: Page, reloadPages: () => void }) {
     setMessage('');
     changeUrlRequest(
       'patch',
-      `/pages/${page.pageId}`,
+      `/pages/${page.id}`,
       { urlName: newUrlName },
       reloadPages,
       err => setMessage(err.message),

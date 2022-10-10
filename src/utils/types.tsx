@@ -1,14 +1,14 @@
 import { AxiosRequestConfig } from "axios";
 
 export type User = {
-  userId: number,
+  id: number,
   username: string,
   displayname: string,
   token: string
 };
 
 export type Page = {
-  pageId: number,
+  id: number,
   title: string,
   urlName: string
 }
@@ -23,7 +23,7 @@ export type EntryType =
   'space'
 
 export type Entry = {
-  entryId: number,
+  id: number,
   type: EntryType,
   index: number,
   title: string,

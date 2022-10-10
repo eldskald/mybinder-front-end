@@ -2,8 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useRequest, usePopup } from 'hooks';
 import { UserContext } from 'contexts';
 import { Entry, EntryType } from 'utils/types';
-import { AiOutlineEdit } from 'react-icons/ai';
 import { FaTrashAlt } from 'react-icons/fa';
+import {
+  AiOutlineEdit,
+  AiOutlineArrowDown,
+  AiOutlineArrowUp
+} from 'react-icons/ai';
 import {
   Container,
   EntryTypeInput,
@@ -15,7 +19,9 @@ import {
   UpdateButton,
   DeleteButton,
   MessageContainer,
-  ButtonsWrapper
+  ButtonsWrapper,
+  MoveButtonsWrapper,
+  MoveButton
 } from './EntryEditItem.styles';
 
 function EntryEditItem(props: {
@@ -36,6 +42,7 @@ function EntryEditItem(props: {
   const popup = usePopup();
   const [updating, updateRequest] = useRequest();
   const [deleting, deleteRequest] = useRequest();
+  const [moving, moveRequest] = useRequest();
 
   function handleDelete(e: React.SyntheticEvent) {
     e.preventDefault();
@@ -44,7 +51,7 @@ function EntryEditItem(props: {
       'Delete this entry?',
       () => deleteRequest(
         'delete',
-        `/entries/${pageId}/${entry.entryId}`,
+        `/entries/${pageId}/${entry.id}`,
         {},
         () => {
           popup('Entry deleted', reloadEntries);
@@ -66,7 +73,7 @@ function EntryEditItem(props: {
     setMessage('');
     updateRequest(
       'put',
-      `/entries/${pageId}/${entry.entryId}`,
+      `/entries/${pageId}/${entry.id}`,
       {
         type,
         title: title ? title : undefined,
@@ -88,9 +95,57 @@ function EntryEditItem(props: {
     );
   }
 
+  function handleMoveUp(e: React.SyntheticEvent) {
+    e.preventDefault();
+    if (moving) return;
+    moveRequest(
+      'patch',
+      `/entries/move-up/${pageId}/${entry.id}`,
+      {},
+      () => {
+        popup('Entry moved up in the order', reloadEntries);
+      },
+      err => {
+        popup(err.message)
+      },
+      { headers: {
+        Authorization: `Bearer ${user?.token}`
+      }}
+    );
+  }
+
+  function handleMoveDown(e: React.SyntheticEvent) {
+    e.preventDefault();
+    if (moving) return;
+    moveRequest(
+      'patch',
+      `/entries/move-down/${pageId}/${entry.id}`,
+      {},
+      () => {
+        popup('Entry moved down in the order', reloadEntries);
+      },
+      err => {
+        popup(err.message)
+      },
+      { headers: {
+        Authorization: `Bearer ${user?.token}`
+      }}
+    );
+  }
+
   return (
     <Container>
       <FormContainer onSubmit={handleSubmit}>
+        <MoveButtonsWrapper>
+          <MoveButton onClick={handleMoveUp}>
+            <AiOutlineArrowUp />
+            Move Up
+          </MoveButton>
+          <MoveButton onClick={handleMoveDown}>
+            <AiOutlineArrowDown />
+            Move Down
+          </MoveButton>
+        </MoveButtonsWrapper>
         <InputWrapper show>
           <InputDesc>
             Entry type:

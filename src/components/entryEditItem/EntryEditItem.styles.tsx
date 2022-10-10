@@ -171,3 +171,35 @@ export const DeleteButton = styled.button`
     margin-right: 6px;
   }
 `;
+
+export const MoveButtonsWrapper = styled.div`
+  margin: 0px 32px 32px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+export const MoveButton = styled.button`
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--headerfont);
+  font-size: 20px;
+  margin-right: 16px;
+  color: var(--contrastcolor2);
+  display: flex;
+  align-items: center;
+  transition: 0.2s;
+  
+  :hover {
+    color: var(--contrastcolor1);
+  }
+
+  :disabled {
+    color: var(--textcolor2);
+  }
+
+  svg {
+    margin-right: 6px;
+  }
+`;
