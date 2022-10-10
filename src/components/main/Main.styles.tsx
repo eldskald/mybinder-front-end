@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 export const MainContainer = styled.div`
   position: absolute;
+  height: ${(props: { noHeader: boolean }) => (props.noHeader ? '100%' : 'calc(100% - 64px)' )};
+  width: 100%;
   top: ${(props: { noHeader: boolean }) => (props.noHeader ? '0px' : '64px' )};
-  bottom: 0px;
   left: 0px;
-  right: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
