@@ -124,7 +124,7 @@ function PageListItem(props: { page: Page, reloadPages: () => void }) {
         <Link to={`/edit/${page.urlName}`}>
           <FaEdit /> Edit
         </Link>
-        <Link to={`/${user?.username}/${page.urlName}`}>
+        <Link to={`/${user?.username}/${page.urlName}`} target='_blank'>
           <VscOpenPreview /> View
         </Link>
         <DeleteButton
