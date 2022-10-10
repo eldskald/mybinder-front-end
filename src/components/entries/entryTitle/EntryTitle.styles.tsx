@@ -10,6 +10,7 @@ export const Title = styled.div`
   font-size: 48px;
   color: var(--contrastcolor1);
   text-align: center;
+  padding: 0px 16px;  
 `;
 
 export const Subtitle = styled.div`
@@ -17,4 +18,5 @@ export const Subtitle = styled.div`
   font-size: 32px;
   color: var(--contrastcolor1);
   text-align: center;
+  padding: 0px 16px;  
 `;
