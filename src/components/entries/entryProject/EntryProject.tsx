@@ -5,7 +5,7 @@ import {
   InnerContainer,
   ImgAndDescWrapper,
   TextWrapper
-} from './EntryThumbnail.styles';
+} from './EntryProject.styles';
 
 function EntryThumbnail(props: { entry: Entry }) {
   const { title, description, text, imageUrl, sourceUrl } = props.entry;

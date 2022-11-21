@@ -18,7 +18,7 @@ export type FullPage = Page & { entries: Entry[] };
 export type EntryType =
   'title' |
   'image' |
-  'thumbnail' |
+  'project' |
   'text' |
   'space'
 

@@ -154,12 +154,12 @@ function EntryEditItem(props: {
           </InputDesc>
           <EntryTypeInput value={type}>
             <option value='title' onClick={() => setType('title')}>Title</option>
-            <option value='thumbnail' onClick={() => setType('thumbnail')}>Thumbnail</option>
+            <option value='project' onClick={() => setType('project')}>Project</option>
             <option value='text' onClick={() => setType('text')}>Text</option>
             <option value='image' onClick={() => setType('image')}>Image</option>
           </EntryTypeInput>
         </InputWrapper>
-        <InputWrapper show={type === 'title' || type === 'thumbnail' || type === 'text'}>
+        <InputWrapper show={type === 'title' || type === 'project' || type === 'text'}>
           <InputDesc>Title:</InputDesc>
           <InputField
             id='title'
@@ -169,7 +169,7 @@ function EntryEditItem(props: {
             onChange={e => setTitle(e.target.value)}
           />
         </InputWrapper>
-        <InputWrapper show={type === 'title' || type === 'thumbnail'}>
+        <InputWrapper show={type === 'title' || type === 'project'}>
           <InputDesc>Description:</InputDesc>
           <InputLargeField
             id='description'
@@ -178,7 +178,7 @@ function EntryEditItem(props: {
             onChange={e => setDescription(e.target.value)}
           />
         </InputWrapper>
-        <InputWrapper show={type === 'text' || type === 'thumbnail'}>
+        <InputWrapper show={type === 'text' || type === 'project'}>
           <InputDesc>Text:</InputDesc>
           <InputLargeField
             id='text'
@@ -187,7 +187,7 @@ function EntryEditItem(props: {
             onChange={e => setText(e.target.value)}
           />
         </InputWrapper>
-        <InputWrapper show={type === 'image' || type === 'thumbnail'}>
+        <InputWrapper show={type === 'image' || type === 'project'}>
           <InputDesc>Image URL:</InputDesc>
           <InputField
             id='imageUrl'
@@ -197,7 +197,7 @@ function EntryEditItem(props: {
             onChange={e => setImageUrl(e.target.value)}
           />
         </InputWrapper>
-        <InputWrapper show={type === 'thumbnail'}>
+        <InputWrapper show={type === 'project'}>
           <InputDesc>Source URL:</InputDesc>
           <InputField
             id='sourceUrl'
