@@ -7,7 +7,7 @@ import { MoonLoader } from 'react-spinners';
 import { FullPage } from 'utils/types';
 import {
   EntryTitle,
-  EntryThumbnail,
+  EntryProject,
   EntryText,
   EntryImage,
   EntrySpace
@@ -21,7 +21,7 @@ function ViewPage() {
   const [data, setData] = useState<FullPage | null>(null);
   const [error,setError] = useState<string>('');
   const { username, pageUrl } = useParams();
-  const { setNoHeader, noHeader } = useContext(HeaderContext);
+  const { setNoHeader } = useContext(HeaderContext);
   const [loading, sendRequest] = useRequest<FullPage>();
 
   useEffect(() => {
@@ -55,8 +55,8 @@ function ViewPage() {
               entry.type === 'title' ? (
                 <EntryTitle key={index} entry={entry} />
               ) : (
-                entry.type === 'thumbnail' ? (
-                  <EntryThumbnail key={index} entry={entry} />
+                entry.type === 'project' ? (
+                  <EntryProject key={index} entry={entry} />
                 ) : (
                   entry.type === 'text' ? (
                     <EntryText key={index} entry={entry} />
