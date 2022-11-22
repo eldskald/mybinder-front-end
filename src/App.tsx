@@ -1,10 +1,16 @@
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { UserContext, PopupContext, HeaderContext } from 'contexts';
-import { autoLogin } from 'services';
+import { useAutoLogin } from 'services';
 import { GlobalStyle } from 'assets/styles';
-import { Main, CoverSpinner, Header, Popup } from 'components';
 import { User, PopupData } from 'utils/types'
+import {
+  Main,
+  CoverSpinner,
+  Header,
+  Popup,
+  ProtectedRoutes
+} from 'components';
 import {
   Landing,
   SignUp,
@@ -19,7 +25,7 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
   const [popups, setPopups] = useState<PopupData[]>([]);
   const [noHeader, setNoHeader] = useState<boolean>(false);
-  const [loadingUser] = autoLogin(setUser);
+  const [loadingUser] = useAutoLogin(setUser);
 
   return (
     <>
@@ -36,11 +42,13 @@ function App() {
                       <Route path='/' element={<Landing />} />
                       <Route path='/sign-up' element={<SignUp />} />
                       <Route path='/login' element={<Login />} />
+                      <Route path='/:username/:pageUrl' element={<ViewPage />} />
+                    </Routes>
+                    <ProtectedRoutes>
                       <Route path='/settings' element={<Settings />} />
                       <Route path='/dashboard' element={<Dashboard />} />
                       <Route path='/edit/:pageUrl' element={<EditPage />} />
-                      <Route path='/:username/:pageUrl' element={<ViewPage />} />
-                    </Routes>
+                    </ProtectedRoutes>
                   </Main>
                   <Popup />
                 </>

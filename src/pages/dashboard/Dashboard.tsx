@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useRequest, usePopup } from 'hooks';
 import { UserContext } from 'contexts';
-import { loginGate } from 'services';
 import { MoonLoader, PulseLoader } from 'react-spinners';
 import { PageListItem } from 'components';
 import { Page } from 'utils/types';
@@ -27,12 +25,10 @@ function Dashboard() {
   const [newPageTitle, setNewPageTitle] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const { user } = useContext(UserContext);
-  const navigate = useNavigate();
   const popup = usePopup();
   const [creatingPage, createPageRequest] = useRequest();
   const [loadingPages, getPagesRequest] = useRequest<Page[]>();
   
-  loginGate(navigate);
   useEffect(loadPages, []);
 
   function loadPages() {

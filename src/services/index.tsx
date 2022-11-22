@@ -1,5 +1,5 @@
 import { saveToken, getToken, removeToken } from './tokenServices';
-import autoLogin from './autoLogin';
+import useAutoLogin from './useAutoLogin';
 import login from './login';
 import logout from './logout';
 import loginGate from './loginGate';
@@ -8,7 +8,7 @@ export {
   saveToken,
   getToken,
   removeToken,
-  autoLogin,
+  useAutoLogin,
   login,
   logout,
   loginGate

@@ -3,6 +3,7 @@ import Header from './header/Header';
 import CoverSpinner from './coverSpinner/CoverSpinner';
 import PageListItem from './pageListItem/PageListItem';
 import EntryEditItem from './entryEditItem/EntryEditItem';
+import { ProtectedRoutes } from './protectedRoutes/ProtectedRoutes';
 import Main from './main/Main';
 
 export {
@@ -11,5 +12,6 @@ export {
   CoverSpinner,
   PageListItem,
   EntryEditItem,
+  ProtectedRoutes,
   Main
 };

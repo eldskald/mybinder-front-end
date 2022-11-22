@@ -1,10 +1,8 @@
 import { useState, useEffect, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { useRequest, usePopup } from 'hooks';
 import { UserContext } from 'contexts';
 import { PulseLoader } from 'react-spinners';
-import { loginGate } from 'services';
 import {
   Container,
   FormContainer,
@@ -24,10 +22,8 @@ function Settings() {
   const [message, setMessage] = useState<string>('');
   const { user, setUser } = useContext(UserContext);
   const [submitting, sendRequest] = useRequest();
-  const navigate = useNavigate();
   const popup = usePopup();
 
-  loginGate(navigate);
   useEffect(() => {
     if (user) setDisplayname(user.displayname);
   }, [user]);

@@ -6,7 +6,7 @@ import { User } from 'utils/types';
 
 const API_URL: string = import.meta.env.VITE_API_URL as string;
 
-function autoLogin(
+function useAutoLogin(
   setUser: React.Dispatch<React.SetStateAction<User | null>>
 ): [boolean] {
   const [loading, setLoading] = useState<boolean>(true);
@@ -39,4 +39,4 @@ function autoLogin(
   return [loading];
 }
 
-export default autoLogin;
+export default useAutoLogin;
